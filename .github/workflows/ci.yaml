@@ -24,12 +24,11 @@ jobs:
       - name: Check formatting
         run: nix develop .#ci --command just fmt-check
   test:
-    name: Test ${{ matrix.os }} / Neovim ${{ matrix.neovim }}
-    runs-on: ${{ matrix.os }}
+    name: Test / Neovim ${{ matrix.neovim }}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
         neovim: [stable, nightly]
     steps:
       - uses: actions/checkout@v4

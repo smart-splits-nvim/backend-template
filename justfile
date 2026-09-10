@@ -38,7 +38,7 @@ lint:
     selene ./lua/ ./tests/
 
 # Run LuaLS type checking
-typecheck:
+typecheck: deps
     #!/usr/bin/env bash
     tmpdir="$(mktemp -d)"
     trap 'rm -rf "$tmpdir"' EXIT
