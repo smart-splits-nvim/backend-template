@@ -1,0 +1,19 @@
+# Dependencies
+deps/
+
+# Editor
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+.tmp/
+
+# Test artifacts
+.luacov
+coverage/
+
+# Build artifacts
+bin/
