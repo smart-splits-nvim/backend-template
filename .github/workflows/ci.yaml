@@ -36,7 +36,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
-        neovim: [v0.10.0, stable, nightly]
+        neovim: [stable, nightly]
     steps:
       - uses: actions/checkout@v4
       - name: Install Nix
