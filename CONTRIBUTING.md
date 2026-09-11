@@ -53,6 +53,16 @@ just format         # Auto-format code
 just typecheck      # Type checking
 ```
 
+To run the tests against Neovim nightly:
+
+```sh
+nix develop .#ci-nightly --command just test
+```
+
+The nightly build is downloaded from the [nix-community binary cache](https://nix-community.org/cache/); without that
+cache configured, Nix compiles Neovim from source. CI runs `nix flake update neovim-nightly-overlay` first to test the
+latest nightly.
+
 ## Implementation Guidelines
 
 ### Backend Protocol
