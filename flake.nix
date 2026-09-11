@@ -9,12 +9,18 @@
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
+      self,
       nixpkgs,
       flake-utils,
       neovim-nightly-overlay,
+      treefmt-nix,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (
@@ -28,30 +34,45 @@
             (_: _: { neovim-unwrapped = neovim-nightly-overlay.checks.${system}.neovim; })
           ];
         };
+        treefmt-eval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+        treefmt-wrapper = treefmt-eval.config.build.wrapper;
         packagesFor =
           p: with p; [
             git
-            stylua
-            selene
+            treefmt-wrapper
+            actionlint
             just
-            neovim
             lua-language-server
-            lua51Packages.nlua
             lua51Packages.busted
+            lua51Packages.nlua
+            neovim
+            nixfmt
+            prettier
+            selene
+            statix
+            stylua
+            tombi
+            yamlfmt
           ];
       in
       {
-        devShells.default = pkgs.mkShell {
-          name = "backend-template";
-          packages = packagesFor pkgs;
+        formatter = treefmt-wrapper;
+        devShells = {
+          default = pkgs.mkShell {
+            name = "backend-template";
+            packages = packagesFor pkgs;
+          };
+          ci = pkgs.mkShell {
+            name = "ci";
+            packages = packagesFor pkgs;
+          };
+          ci-nightly = nightlyPkgs.mkShell {
+            name = "ci-nightly";
+            packages = packagesFor nightlyPkgs;
+          };
         };
-        devShells.ci = pkgs.mkShell {
-          name = "ci";
-          packages = packagesFor pkgs;
-        };
-        devShells.ci-nightly = nightlyPkgs.mkShell {
-          name = "ci-nightly";
-          packages = packagesFor nightlyPkgs;
+        checks = {
+          formatting = treefmt-eval.config.build.check self;
         };
       }
     );

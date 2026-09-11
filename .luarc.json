@@ -10,15 +10,10 @@
       "${3rd}/luv/library",
       "deps/smart-splits.nvim/lua"
     ],
-    "ignoreDir": [
-      "tests",
-      ".direnv"
-    ]
+    "ignoreDir": ["tests", ".direnv"]
   },
   "diagnostics": {
-    "globals": [
-      "vim"
-    ],
+    "globals": ["vim"],
     "libraryFiles": "Disable"
   }
 }
