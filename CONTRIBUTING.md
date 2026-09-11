@@ -20,7 +20,8 @@ If you prefer to install tools manually:
 
 ```sh
 # macOS
-brew install neovim stylua lua-language-server luajit luarocks just
+brew install neovim stylua lua-language-server luajit luarocks just \
+  yamlfmt prettier tombi nixfmt actionlint statix
 
 LUAJIT_PREFIX="$(brew --prefix luajit)"
 ROCKS=(--lua-version=5.1 --lua-dir="$LUAJIT_PREFIX" --local)
@@ -38,7 +39,7 @@ just check
 ```
 
 This runs:
-- Stylua formatting check
+- Formatting checks (Stylua, yamlfmt, prettier, tombi, actionlint, statix)
 - Selene linting
 - LuaLS type checking
 - Busted test suite
@@ -46,11 +47,11 @@ This runs:
 Individual commands:
 
 ```sh
-just test           # Run tests
-just lint           # Run linters
-just format-check   # Check formatting
-just format         # Auto-format code
-just typecheck      # Type checking
+just test        # Run tests
+just lint        # Run linters
+just fmt-check   # Check formatting
+just fmt         # Auto-format code
+just typecheck   # Type checking
 ```
 
 To run the tests against Neovim nightly:
@@ -113,7 +114,7 @@ Test files follow the pattern `tests/core/*_spec.lua`.
 - Maximum line length: 120 characters
 - Sort requires alphabetically
 
-These are enforced by Stylua and Selene.
+These are enforced by Stylua, yamlfmt, prettier, tombi, actionlint, and statix.
 
 ## Pull Request Process
 
