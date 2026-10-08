@@ -1,5 +1,6 @@
 # Smart-splits core revision to test against
-SMART_SPLITS_REV := "v3" # TODO: update to v3.0.0 when tagged
+# TODO: update to latest v3 tag when creating your backend
+SMART_SPLITS_REV := "v3.0.0"
 
 # Clone smart-splits core at pinned revision (no-op if already correct)
 [private]
